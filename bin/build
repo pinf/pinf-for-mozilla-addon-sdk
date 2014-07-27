@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# @credit http://stackoverflow.com/a/246128/330439
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+BASE_PATH="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+
+if [ ! -d "$BASE_PATH/../lib/vendor" ]; then
+	mkdir "$BASE_PATH/../lib/vendor"
+fi
+if [ ! -d "$BASE_PATH/../lib/vendor/pinf-loader-js" ]; then
+	mkdir "$BASE_PATH/../lib/vendor/pinf-loader-js"
+fi
+cp "$BASE_PATH/../node_modules/pinf-loader-js/loader.js" "$BASE_PATH/../lib/vendor/pinf-loader-js/"

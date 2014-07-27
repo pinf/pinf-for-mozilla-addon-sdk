@@ -1,0 +1,9 @@
+{
+  "name": "pinf-for-mozilla-addon-sdk",
+  "version": "0.1.0",
+  "publish": true,
+  "pm": "npm",
+  "devDependencies": {
+    "pinf-loader-js": "https://github.com/pinf/pinf-loader-js/archive/v0.4.6.tar.gz"
+  }
+}
