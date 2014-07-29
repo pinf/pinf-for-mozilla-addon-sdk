@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# @credit http://stackoverflow.com/a/246128/330439
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+BASE_PATH="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+
+"$BASE_PATH/build"
+
+
+cd "$BASE_PATH/../examples/$1"
+
+if [ ! -d "packages" ]; then
+	mkdir packages
+fi
+rm -Rf packages/pinf-for-mozilla-addon-sdk || true
+mkdir packages/pinf-for-mozilla-addon-sdk
+cp -Rf ../../package.json packages/pinf-for-mozilla-addon-sdk
+cp -Rf ../../lib packages/pinf-for-mozilla-addon-sdk
+
+
+cfx test -o
+cd ../../../..

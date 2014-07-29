@@ -9,6 +9,8 @@ Development
 	nvm use 0.10
 	npm install
 
-	build
+	bin/build
+	bin/test
 
+	test-example HelloWorld
 	run-example HelloWorld
