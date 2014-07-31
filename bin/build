@@ -17,3 +17,12 @@ if [ ! -d "$BASE_PATH/../lib/vendor/pinf-loader-js" ]; then
 	mkdir "$BASE_PATH/../lib/vendor/pinf-loader-js"
 fi
 cp "$BASE_PATH/../node_modules/pinf-loader-js/loader.js" "$BASE_PATH/../lib/vendor/pinf-loader-js/"
+
+
+if [ ! -d "$BASE_PATH/../test/data/vendor" ]; then
+	mkdir "$BASE_PATH/../test/data/vendor"
+fi
+if [ ! -d "$BASE_PATH/../test/data/vendor/pinf-loader-js" ]; then
+	mkdir "$BASE_PATH/../test/data/vendor/pinf-loader-js"
+fi
+cp -Rf "$BASE_PATH/../node_modules/pinf-loader-js/features" "$BASE_PATH/../test/data/vendor/pinf-loader-js"

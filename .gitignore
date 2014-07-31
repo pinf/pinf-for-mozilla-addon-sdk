@@ -1,3 +1,4 @@
 /node_modules/
 /examples/HelloWorld/packages/
 /test/packages/
+/test/data/vendor/
