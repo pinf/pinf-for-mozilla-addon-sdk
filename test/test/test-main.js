@@ -3,6 +3,7 @@
 //       at: https://github.com/pinf/pinf-for-jquery/blob/master/test/browser/loader-bundles.js
 
 const Q = require("./vendor/q");
+const URL = require("sdk/net/url");
 const { data } = require("sdk/self");
 const { sandbox } = require("pinf-for-mozilla-addon-sdk");
 
@@ -23,13 +24,9 @@ var config = {
         moduleObj.require.API = {
             Q: Q,
             FETCH: function(uri, callback) {
-console.log("fetch", uri);
-throw "stop";            	
-                return $.get(uri).done(function(data, textStatus, jqXHR) {
-                    return callback(null, data);
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    return callback(new Error((errorThrown && errorThrown.message) || textStatus));
-                });
+				return URL.readURI(uri).then(function (code) {
+					return callback(null, code);
+				}, callback);
             }
         };
         moduleInterface.log = function() {
@@ -43,7 +40,7 @@ throw "stop";
 
 function getFeatures() {
 	return [
-		// NOTE: DO NOT EDIT THIS LIST! IT IS AUTO-GENERATED ON `make build`.
+		// NOTE: DO NOT EDIT THIS LIST! IT IS AUTO-GENERATED ON `bin/build`.
 		// @inject <features>
 		'01-HelloWorld',
 		'02-ReturnExports',
@@ -70,7 +67,7 @@ getFeatures().forEach(function(feature) {
 	exports["test loader-bundles: " + feature] = function(assert, _done) {
 		function done(err) {
 			if (err) {
-				console.log(err.stack);
+				console.log(err, err.message, err.stack);
 				assert.fail("error");
 			}
 			return _done();
@@ -92,8 +89,12 @@ getFeatures().forEach(function(feature) {
     };
 });
 
-/*
+
 exports["test verify output"] = function(assert, done) {
+	for (var uri in logBuffer) {
+		logBuffer[uri.replace(/^resource:\/\/.+?\/features/, "")] = logBuffer[uri];
+		delete logBuffer[uri];
+	}
 	assert.deepEqual(logBuffer, {
 	    "/01-HelloWorld/main.js": "Hello from 01-HelloWorld!",
 	    "/02-ReturnExports/main.js": "Hello from 02-ReturnExports!",
@@ -108,19 +109,19 @@ exports["test verify output"] = function(assert, done) {
 	    "/10-Sandbox/main.js": "Hello from 10-Sandbox!",
 	    "/10-Sandbox/SandboxedExtraBundle/main.js": "Hello from 10-Sandbox/SandboxedExtraBundle!",
 	    "/11-CrossDomain/main.js": "Hello from 11-CrossDomain!",
-	    "https://raw.github.com/pinf/pinf-loader-js/master/features/11-CrossDomain/CrossDomainBundle/main.js": "Hello from 11-CrossDomain/CrossDomainBundle!",
 	    "/12-Environment/main.js": "Hello from 12-Environment!",
 	    "/13-AssignExports/main.js": "Hello from 13-AssignExports!",
 	    "/14-NamedBundle/main.js": "Hello from 14-NamedBundle!",
 	    "/15-GlobalDependencyFallbackpackageA/logger.js": "Hello from 15-GlobalDependencyFallback!",
 	    "/16-MemoizedDynamic/main.js": "Hello from 16-MemoizedDynamic!",
-			"/16-MemoizedDynamic/Dynamic.js": "Hello from 16-MemoizedDynamic/Dynamic!",
-			"/17-LoadPackageDependency/main.js": "Hello from 17-LoadPackageDependency!",
+		"/16-MemoizedDynamic/Dynamic.js": "Hello from 16-MemoizedDynamic/Dynamic!",
+		"/17-LoadPackageDependency/main.js": "Hello from 17-LoadPackageDependency!",
 		"/17-LoadPackageDependencyExtraPackageID/ExtraModule.js": "Hello from 17-LoadPackageDependency/ExtraPackageID/ExtraModule!"
 	});
 	assert.pass("ok");
+	return done(null);
 };
-*/
+
 
 require("sdk/test").run(exports);
 
