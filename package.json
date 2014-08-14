@@ -4,6 +4,7 @@
   "publish": true,
   "pm": "npm",
   "devDependencies": {
-    "pinf-loader-js": "https://github.com/pinf/pinf-loader-js/archive/v0.4.6.tar.gz"
+    "pinf-loader-js": "git://github.com/pinf/pinf-loader-js.git#a662e907085536834d0465e1f52f5486f9e64b8c",
+    "pinf-loader-secure-js": "git://github.com/pinf/pinf-loader-secure-js.git#2cf1c50d399144cd7630bd2ec89f951954e74eca"
   }
 }

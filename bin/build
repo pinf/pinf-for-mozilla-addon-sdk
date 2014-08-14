@@ -16,7 +16,26 @@ fi
 if [ ! -d "$BASE_PATH/../lib/vendor/pinf-loader-js" ]; then
 	mkdir "$BASE_PATH/../lib/vendor/pinf-loader-js"
 fi
+_OLD_PATH=$(pwd)
+cd "$BASE_PATH/../node_modules/pinf-loader-js"
+if [ ! -d "$BASE_PATH/../node_modules/pinf-loader-js/node_modules/mocha" ]; then
+	npm install
+fi
+make build
+cd "$_OLD_PATH"
 cp "$BASE_PATH/../node_modules/pinf-loader-js/loader.js" "$BASE_PATH/../lib/vendor/pinf-loader-js/"
+
+if [ ! -d "$BASE_PATH/../data/vendor/pinf-loader-secure-js" ]; then
+	mkdir "$BASE_PATH/../data/vendor/pinf-loader-secure-js"
+fi
+_OLD_PATH=$(pwd)
+cd "$BASE_PATH/../node_modules/pinf-loader-secure-js"
+if [ ! -d "$BASE_PATH/../node_modules/pinf-loader-secure-js/node_modules/pinf-for-nodejs" ]; then
+	npm install
+fi
+npm run-script build
+cd "$_OLD_PATH"
+cp -Rf "$BASE_PATH/../node_modules/pinf-loader-secure-js/client/bundles" "$BASE_PATH/../data/vendor/pinf-loader-secure-js/"
 
 
 if [ ! -d "$BASE_PATH/../test/data/vendor" ]; then

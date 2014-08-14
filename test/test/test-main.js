@@ -122,6 +122,34 @@ exports["test verify output"] = function(assert, done) {
 	return done(null);
 };
 
+exports["test secure sandbox"] = function(assert, _done) {
+	function done(err) {
+		if (err) {
+			console.log(err, err.message, err.stack);
+			assert.fail("error");
+		}
+		return _done();
+	}
+
+	// TODO: Need to find own module path so we can find our own sandbox bundle.
+	// 		 @see https://github.com/pinf/pinf-for-mozilla-addon-sdk/issues/1
+//   	return sandbox("http://rawgit.com/pinf/pinf-loader-secure-js/master/client/bundles/sandbox.js", {}, function(sandbox) {
+   	return sandbox("file:///playground/2014-07-pinf-for-mozilla-addon-sdk/pinf-for-mozilla-addon-sdk/data/vendor/pinf-loader-secure-js/bundles/sandbox.js", {}, function(sandbox) {
+		return sandbox.main().sandbox(data.url("bundle.js"), {
+			secure: {
+				bundles: [
+					"sha256:*"
+				]
+			}
+		}, function(sandbox) {
+			sandbox.main();
+			assert.pass("ok");
+	        return done(null);
+
+		}, done);
+	}, done);
+};
+
 
 require("sdk/test").run(exports);
 
