@@ -25,6 +25,12 @@ make build
 cd "$_OLD_PATH"
 cp "$BASE_PATH/../node_modules/pinf-loader-js/loader.js" "$BASE_PATH/../lib/vendor/pinf-loader-js/"
 
+if [ ! -d "$BASE_PATH/../data" ]; then
+	mkdir "$BASE_PATH/../data"
+fi
+if [ ! -d "$BASE_PATH/../data/vendor" ]; then
+	mkdir "$BASE_PATH/../data/vendor"
+fi
 if [ ! -d "$BASE_PATH/../data/vendor/pinf-loader-secure-js" ]; then
 	mkdir "$BASE_PATH/../data/vendor/pinf-loader-secure-js"
 fi

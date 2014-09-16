@@ -25,5 +25,14 @@ cp -Rf ../package.json packages/pinf-for-mozilla-addon-sdk
 cp -Rf ../lib packages/pinf-for-mozilla-addon-sdk
 
 
-cfx test -o
+export PROJECT_ROOT_PATH="$BASE_PATH/.."
+
+_ARGS=""
+if [ ! -z ${PROFILE_DIR+x} ]; then
+	_ARGS="$_ARGS --profiledir=$PROFILE_DIR"
+fi
+if [ ! -z ${BROWSER_BIN+x} ]; then
+	_ARGS="$_ARGS -b $BROWSER_BIN"
+fi
+cfx test -o $_ARGS
 cd "$OLD_BASE_PATH"

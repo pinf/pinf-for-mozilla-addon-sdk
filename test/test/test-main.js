@@ -6,6 +6,7 @@ const Q = require("./vendor/q");
 const URL = require("sdk/net/url");
 const { data } = require("sdk/self");
 const { sandbox } = require("pinf-for-mozilla-addon-sdk");
+const { env: ENV } = require('sdk/system/environment');
 
 
 var logBuffer = {};
@@ -134,7 +135,16 @@ exports["test secure sandbox"] = function(assert, _done) {
 	// TODO: Need to find own module path so we can find our own sandbox bundle.
 	// 		 @see https://github.com/pinf/pinf-for-mozilla-addon-sdk/issues/1
 //   	return sandbox("http://rawgit.com/pinf/pinf-loader-secure-js/master/client/bundles/sandbox.js", {}, function(sandbox) {
-   	return sandbox("file:///playground/2014-07-pinf-for-mozilla-addon-sdk/pinf-for-mozilla-addon-sdk/data/vendor/pinf-loader-secure-js/bundles/sandbox.js", {}, function(sandbox) {
+console.log("require.resolve !!!", typeof require.resolve);
+if (typeof require.resolve === "function") {
+	console.log("TODO: Use require.resolve() now that it is available!");
+}
+	// TODO: Remove use of 'PROJECT_ROOT_PATH' once 'require.resolve()' is working.
+	if (!ENV.PROJECT_ROOT_PATH) {
+		throw new Error("'PROJECT_ROOT_PATH' environment variable should be set. This is typically done by 'bin/test'.");
+	}
+
+   	return sandbox("file://" + ENV.PROJECT_ROOT_PATH + "/data/vendor/pinf-loader-secure-js/bundles/sandbox.js", {}, function(sandbox) {
 		return sandbox.main().sandbox(data.url("bundle.js"), {
 			secure: {
 				bundles: [

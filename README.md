@@ -45,9 +45,7 @@ Requirements:
 
 Install:
 
-	source bin/activate
-	nvm use 0.10
-	npm install
+	source bin/activate.sh
 
 Run tests:
 
