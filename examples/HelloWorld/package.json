@@ -1,13 +1,13 @@
 {
   "name": "helloworld",
   "title": "HelloWorld",
-  "id": "jid1-vgpBtoBZ9AW8Bw",
+  "id": "pinf-for-mozilla-addon-sdk-examples-HelloWorld@pinf.org",
   "description": "HelloWorld",
   "author": "",
   "license": "MPL 2.0",
-  "version": "0.1",
+  "version": "0.1.0",
+  "main": "lib/main",
   "dependencies": [
-    "pinf-for-mozilla-addon-sdk",
-  	"addon-sdk"
+    "pinf-for-mozilla-addon-sdk"
   ]
 }

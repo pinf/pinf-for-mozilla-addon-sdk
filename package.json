@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "publish": true,
   "pm": "npm",
+  "main": "lib/pinf-for-mozilla-addon-sdk.js",
   "dependencies": {
-	"smi.cli": "0.x"
+  	"smi.cli": "0.x"
   },
   "upstream": {
     "packages": {

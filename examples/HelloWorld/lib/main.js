@@ -1,8 +1,15 @@
 
-const { data } = require("sdk/self");
-const { sandbox } = require("pinf-for-mozilla-addon-sdk");
+const { data:DATA } = require("sdk/self");
+const { sandbox:SANDBOX } = require("pinf-for-mozilla-addon-sdk");
 
 
-sandbox(data.url("bundle.js"), function(sandbox) {
-	sandbox.main();
-});
+exports.main = function (options, callbacks) {
+
+	SANDBOX(DATA.url("bundle.js"), function(sandbox) {
+
+		sandbox.main();
+	});
+};
+
+exports.onUnload = function () {
+};
