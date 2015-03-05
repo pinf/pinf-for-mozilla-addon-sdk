@@ -25,6 +25,9 @@
   "config": {
     "smi.cli": {
       "packagesDirectory": "node_modules"
+    },
+    "pio.deploy.converter": {
+        "name": "nodejs-lib"
     }
   }
 }

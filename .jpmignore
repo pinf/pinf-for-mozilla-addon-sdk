@@ -1,0 +1,9 @@
+/.pio.cache/
+/.pio.cache/**
+/node_modules/
+/node_modules/**
+
+/examples/
+/examples/**
+/.addon-sdk/
+/.addon-sdk/**
