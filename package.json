@@ -10,7 +10,7 @@
   "upstream": {
     "packages": {
       "top": [
-        "../../../../_upstream/os-inception/*",
+        "../../../_upstream/os-inception/*",
         "/opt/services/*"
       ]
     }
